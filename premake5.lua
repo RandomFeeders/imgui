@@ -1,11 +1,10 @@
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
-	targetdir ("%{wks.location}/Binaries/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/Intermediates/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/Build/Binaries/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/Build/Intermediates/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -24,10 +23,12 @@ project "ImGui"
 
 	filter "system:windows"
 		systemversion "latest"
+		cppdialect "C++17"
 
 	filter "system:linux"
 		pic "on"
 		systemversion "latest"
+		cppdialect "C++17"
 
 	filter "configurations:Debug"
 		runtime "Debug"
@@ -36,3 +37,8 @@ project "ImGui"
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
+
+	filter "configurations:Dist"
+		runtime "Release"
+		optimize "on"
+        symbols "off"
